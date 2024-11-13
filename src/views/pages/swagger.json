@@ -1,0 +1,3115 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": ".M.U.F.A.R. APIs",
+    "version": "1.3.8",
+    "x-logo": {
+      "url": "/assets/img/logo.png",
+      "backgroundColor": "#000",
+      "altText": "Example logo"
+    }
+  },
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "query",
+        "name": "apikey"
+      }
+    },
+    "schemas": {
+      "SuccessResponse": {
+        "description": "Success"
+      }
+    }
+  },
+  "paths": {
+    "/ai/blackbox": {
+      "get": {
+        "tags": [
+          "Ai"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "description": "The search query.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ai/Pixart-A": {
+      "get": {
+        "tags": [
+          "Ai"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "prompt",
+            "required": true,
+            "description": "The search query.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "style",
+            "required": true,
+            "description": "The style for the AI. Choose from: Cinematic, Photographic, Anime, Manga, Digital Art, Pixel art, Fantasy art, Neonpunk, 3D Model",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Cinematic",
+                "Photographic",
+                "Anime",
+                "Manga",
+                "Digital Art",
+                "Pixel art",
+                "Fantasy art",
+                "Neonpunk",
+                "3D Model"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "samplers",
+            "required": true,
+            "description": "The sampler for the AI. Choose from: DPM-Solver, SA-Solver",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "DPM-Solver",
+                "SA-Solver"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "width",
+            "required": false,
+            "description": "The width of the image.",
+            "schema": {
+              "type": "integer",
+              "enum": [
+                256,
+                512,
+                768,
+                1024,
+                1280,
+                1536,
+                1792,
+                2048
+              ],
+              "default": 1024
+            }
+          },
+          {
+            "in": "query",
+            "name": "height",
+            "required": false,
+            "description": "The height of the image.",
+            "schema": {
+              "type": "integer",
+              "enum": [
+                256,
+                512,
+                768,
+                1024,
+                1280,
+                1536,
+                1792,
+                2048
+              ],
+              "default": 1024
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with search results.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "author": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "Success",
+                  "code": 200,
+                  "author": "iky",
+                  "data": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/anime/doujin-latest": {
+      "get": {
+        "tags": [
+          "Anime"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Error",
+                  "code": 500,
+                  "message": "Internal Server Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/anime/doujin-search": {
+      "get": {
+        "tags": [
+          "Anime"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "URL for doujin search"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Error",
+                  "code": 500,
+                  "message": "Internal Server Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/anime/doujin-ch": {
+      "get": {
+        "tags": [
+          "Anime"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "URL for doujin search"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Error",
+                  "code": 500,
+                  "message": "Internal Server Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/anime/doujin-img": {
+      "get": {
+        "tags": [
+          "Anime"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "URL doujin get image"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Error",
+                  "code": 500,
+                  "message": "Internal Server Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/anime/hentai": {
+      "get": {
+        "tags": [
+          "Anime"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Error",
+                  "code": 500,
+                  "message": "Internal Server Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/anime/whatanime": {
+      "get": {
+        "tags": [
+          "Anime"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "URL of the image or video frame"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Error",
+                  "code": 500,
+                  "message": "Internal Server Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/anime/nhentai-search": {
+      "get": {
+        "tags": [
+          "Anime"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "q of the image or video frame"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "Error",
+                  "code": 500,
+                  "message": "Internal Server Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/tiktok": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/facebook": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/xnxx": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/mediafire": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/instagram": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/igstory": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/igstory2": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/igtv": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/gdrive": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/twitter": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/sfile": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/capcut": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/spotify": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/apkmirror": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/dvadownloader": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/terabox": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/downloader/ttslide": {
+      "get": {
+        "tags": [
+          "Downloader"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sfw/toanime": {
+      "get": {
+        "tags": [
+          "Maker"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "description": "Parameter for toanime.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Berhasil mengambil informasi.",
+            "content": {
+              "image/*": {
+                "example": "https://example.com/image.jpg"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/misc/runtime": {
+      "get": {
+        "tags": [
+          "Misc"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "uptime": {
+                      "type": "number",
+                      "description": "Application uptime in seconds"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/misc/clock": {
+      "get": {
+        "tags": [
+          "Misc"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "wib": {
+                      "type": "string",
+                      "description": "Current time in Waktu Indonesia Barat timezone"
+                    },
+                    "wita": {
+                      "type": "string",
+                      "description": "Current time in Waktu Indonesia Tengah timezone"
+                    },
+                    "wit": {
+                      "type": "string",
+                      "description": "Current time in Waktu Indonesia Timur timezone"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/myanimelist/search": {
+      "get": {
+        "tags": [
+          "MyAnimeList"
+        ],
+        "summary": "Search for anime or manga on MyAnimeList",
+        "parameters": [
+          {
+            "name": "querystring",
+            "in": "query",
+            "description": "The search query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "The type of search (anime or manga)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "anime",
+                "manga"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/myanimelist/season": {
+      "get": {
+        "tags": [
+          "MyAnimeList"
+        ],
+        "summary": "Get anime data by year, season, and type",
+        "parameters": [
+          {
+            "name": "year",
+            "in": "query",
+            "required": true,
+            "description": "The year",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "season",
+            "in": "query",
+            "required": true,
+            "description": "The season",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "spring",
+                "summer",
+                "fall",
+                "winter"
+              ]
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "description": "The type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "TV",
+                "TVNew",
+                "TVCon",
+                "ONAs",
+                "OVAs",
+                "Specials",
+                "Movies"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/myanimelist/watchlist": {
+      "get": {
+        "tags": [
+          "MyAnimeList"
+        ],
+        "summary": "Get user's watchlist",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "Username of the user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "Start index for pagination",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                50,
+                100,
+                150,
+                200,
+                250
+              ]
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Type of media (anime or manga)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "anime",
+                "manga"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status in the user's watchlist",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/myanimelist/news": {
+      "get": {
+        "tags": [
+          "MyAnimeList"
+        ],
+        "summary": "Get anime news from MyAnimeList",
+        "parameters": [
+          {
+            "name": "nbNews",
+            "in": "query",
+            "description": "Number of news articles to retrieve",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "enum": [
+                10,
+                20,
+                30,
+                40,
+                50
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of anime news articles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "title": {
+                        "type": "string"
+                      },
+                      "link": {
+                        "type": "string"
+                      },
+                      "date": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/myanimelist/anime-info": {
+      "get": {
+        "tags": [
+          "MyAnimeList"
+        ],
+        "summary": "Get anime information from URL",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "url"
+            },
+            "description": "URL of the anime on MyAnimeList.net"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "episodes": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/myanimelist/episodes": {
+      "get": {
+        "tags": [
+          "MyAnimeList"
+        ],
+        "summary": "Get episodes list by anime name and/or id",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "animeName",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The name of the anime"
+            }
+          },
+          {
+            "in": "query",
+            "name": "animeId",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "The unique identifier of the anime"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Episodes list retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/myanimelist/reviews": {
+      "get": {
+        "tags": [
+          "MyAnimeList"
+        ],
+        "summary": "Get list of anime reviews",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": true,
+            "description": "The name of the anime",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "id",
+            "description": "The unique identifier of the anime",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The maximum number of reviews to fetch",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "skip",
+            "description": "The number of reviews to skip",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of anime reviews",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/myanimelist/recommendations": {
+      "get": {
+        "tags": [
+          "MyAnimeList"
+        ],
+        "summary": "Get anime recommendations",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": true,
+            "description": "The name of the anime",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "description": "The unique identifier of the anime",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/myanimelist/stats": {
+      "get": {
+        "tags": [
+          "MyAnimeList"
+        ],
+        "summary": "Get anime stats",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": true,
+            "description": "The name of the anime",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "description": "The unique identifier of the anime",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/myanimelist/pictures": {
+      "get": {
+        "tags": [
+          "MyAnimeList"
+        ],
+        "summary": "Get anime picture",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": true,
+            "description": "The name of the anime",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "id",
+            "required": false,
+            "description": "The unique identifier of the anime",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/myanimelist/user": {
+      "get": {
+        "tags": [
+          "MyAnimeList"
+        ],
+        "summary": "Get anime picture",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "required": true,
+            "description": "The name of the anime",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nsfw/{tag}": {
+      "get": {
+        "tags": [
+          "Random"
+        ],
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "path",
+            "description": "The tag to search for",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "maid",
+                "waifu",
+                "marin-kitagawa",
+                "mori-calliope",
+                "raiden-shogun",
+                "oppai",
+                "selfies",
+                "uniform",
+                "kamisato-ayaka",
+                "ass",
+                "hentai",
+                "milf",
+                "oral",
+                "paizuri",
+                "ecchi",
+                "ero"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "image/*": {}
+            }
+          }
+        }
+      }
+    },
+    "/pinterest/getBoard": {
+      "get": {
+        "tags": [
+          "Pinterest"
+        ],
+        "description": "Retrieve data for a specific board",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the board"
+          },
+          {
+            "in": "query",
+            "name": "slashurl",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The slash URL of the board"
+          },
+          {
+            "in": "query",
+            "name": "bookmark",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bookmark parameter for pagination"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pinterest/searchBoards": {
+      "get": {
+        "tags": [
+          "Pinterest"
+        ],
+        "description": "Search for boards based on query",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The query string for searching boards"
+          },
+          {
+            "in": "query",
+            "name": "bookmark",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bookmark parameter for pagination"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pinterest/searchPins": {
+      "get": {
+        "tags": [
+          "Pinterest"
+        ],
+        "description": "Search for pins based on query",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The query string for searching pins"
+          },
+          {
+            "in": "query",
+            "name": "bookmark",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bookmark parameter for pagination"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pinterest/suggestions": {
+      "get": {
+        "tags": [
+          "Pinterest"
+        ],
+        "description": "Get suggestions for related pins based on pin ID",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the pin"
+          },
+          {
+            "in": "query",
+            "name": "bookmark",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Bookmark parameter for pagination"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/random/{country}": {
+      "get": {
+        "tags": [
+          "Random"
+        ],
+        "parameters": [
+          {
+            "name": "country",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "china",
+                "indonesia",
+                "japan",
+                "korean",
+                "vietnam",
+                "random",
+                "thailand",
+                "malaysia",
+                "potatogodzilla",
+                "nude",
+                "naughty",
+                "jkt48",
+                "saizneko",
+                "belledelphine",
+                "xiaopangju"
+              ]
+            },
+            "description": "Country name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bokep/{genre}": {
+      "get": {
+        "tags": [
+          "Random"
+        ],
+        "parameters": [
+          {
+            "name": "genre",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "office",
+                "pantyhose",
+                "dp",
+                "cock-torture",
+                "encasement",
+                "maids",
+                "high-heels",
+                "college-girls",
+                "lingerie",
+                "dirty-talk",
+                "feminization",
+                "sexy-legs",
+                "russian",
+                "mature",
+                "stockings",
+                "jerkoff-instructions",
+                "cfnm",
+                "enema",
+                "old-and-young",
+                "plus-size",
+                "glasses",
+                "milf",
+                "pov",
+                "corset",
+                "footfetish",
+                "uniform",
+                "footjob",
+                "squirting",
+                "anal",
+                "nurses",
+                "schoolgirls",
+                "vintage-retro",
+                "zettai-ryouiki",
+                "zettai-pantsu",
+                "fisting",
+                "spandex",
+                "crossdressing",
+                "leather",
+                "butts",
+                "big-tits",
+                "transformation",
+                "strapon",
+                "spitting",
+                "deep-throat",
+                "bisexual",
+                "cheerleaders",
+                "sex-toys",
+                "granny",
+                "close-up",
+                "homemade",
+                "rubber-latex",
+                "trampling",
+                "boots",
+                "rough-sex",
+                "lesbian",
+                "reality-porn",
+                "cuckold",
+                "insertions",
+                "public-sex",
+                "femdom",
+                "handjob",
+                "babes",
+                "shemale",
+                "gyno",
+                "amateur",
+                "sex-machines",
+                "group-sex",
+                "hardcore",
+                "facesitting",
+                "panties",
+                "medical",
+                "teen",
+                "pissing",
+                "pussy-licking",
+                "ass-worship",
+                "lezdom",
+                "hairy-pussy",
+                "whipping",
+                "masturbation",
+                "blowjob",
+                "asian",
+                "redhead",
+                "interracial",
+                "big-cock",
+                "wet-messy",
+                "ball-busting",
+                "tattoos-piercings",
+                "ebony",
+                "gloryhole",
+                "skinny",
+                "cumshots",
+                "pregnant",
+                "softcore",
+                "jeans",
+                "latin",
+                "smothering",
+                "upskirt",
+                "bdsm",
+                "bondage",
+                "bbw",
+                "humiliation",
+                "titjob",
+                "spanking",
+                "pornstars",
+                "nude-sports",
+                "indian",
+                "smoking",
+                "voyeur",
+                "cosplay",
+                "3d",
+                "ass-to-mouth",
+                "massage",
+                "anime-art"
+              ]
+            },
+            "description": "genre name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sfw/{name}": {
+      "get": {
+        "tags": [
+          "Random"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "akira",
+                "elaina",
+                "miku",
+                "shota",
+                "anna",
+                "ikuyo",
+                "neko",
+                "takina",
+                "asuna",
+                "kaela",
+                "rias",
+                "waifu",
+                "sakura",
+                "kaguya",
+                "ayanokouji",
+                "yotsuba",
+                "ayuzawa",
+                "kaori",
+                "sasuke",
+                "yumeko",
+                "bocchi",
+                "kobo",
+                "chisato",
+                "kotori",
+                "shinka",
+                "cosplay",
+                "loli",
+                "shizuka"
+              ]
+            },
+            "description": "char name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "image/*": {}
+            }
+          }
+        }
+      }
+    },
+    "/waifu/sfw": {
+      "get": {
+        "tags": [
+          "Random"
+        ],
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "waifu",
+                "neko",
+                "shinobu",
+                "megumin",
+                "bully",
+                "cuddle",
+                "cry",
+                "hug",
+                "awoo",
+                "kiss",
+                "lick",
+                "pat",
+                "smug",
+                "bonk",
+                "yeet",
+                "blush",
+                "smile",
+                "wave",
+                "highfive",
+                "handhold",
+                "nom",
+                "bite",
+                "glomp",
+                "slap",
+                "kill",
+                "kick",
+                "happy",
+                "wink",
+                "poke",
+                "dance",
+                "cringe"
+              ]
+            },
+            "description": "Kategori gambar (SFW)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "example": "https://api.waifu.pics/sfw/waifu/14c9957c-27ae-4798-850b-6d6b9485e36f.jpg"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/waifu/nsfw": {
+      "get": {
+        "tags": [
+          "Random"
+        ],
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "waifu",
+                "neko",
+                "trap",
+                "blowjob"
+              ]
+            },
+            "description": "Kategori gambar (NSFW)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "example": "https://api.waifu.pics/nsfw/waifu/14c9957c-27ae-4798-850b-6d6b9485e36f.jpg"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/xvideos": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "Get videos from XVideos based on criteria",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Search query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "short",
+            "in": "query",
+            "description": "Sorting criteria",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Relevance",
+                "Upload date",
+                "Rating",
+                "Length",
+                "Views",
+                "Random"
+              ],
+              "default": "Relevance"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Date filter",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Anytime",
+                "Last 3 days",
+                "This week",
+                "This month",
+                "Last 3 months",
+                "Last 6 months"
+              ],
+              "default": "Anytime"
+            }
+          },
+          {
+            "name": "duration",
+            "in": "query",
+            "description": "Video duration filter",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "All",
+                "Short videos (1-3min)",
+                "Medium videos (3-10min)",
+                "Long videos (+10min)",
+                "Long videos (10-20min)",
+                "Long videos (+20min)"
+              ],
+              "default": "All"
+            }
+          },
+          {
+            "name": "quality",
+            "in": "query",
+            "description": "Video quality filter",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "All",
+                "720P",
+                "1080P"
+              ],
+              "default": "All"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "isChannel": {
+                        "type": "boolean"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "duration": {
+                        "type": "string"
+                      },
+                      "hdMark": {
+                        "type": "string"
+                      },
+                      "thumbnail": {
+                        "type": "string"
+                      },
+                      "thumbnailGif": {
+                        "type": "string"
+                      },
+                      "channelName": {
+                        "type": "string"
+                      },
+                      "channelHref": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/youtube": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "description": "query for downloaded YouTube content",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/xnxx": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "description": "query for response for Xnxx",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/wikipedia": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "description": "query for response for Wikipedia",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/dvasearch": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "description": "query for response for apk",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/komikcast": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "description": "query for response for komik",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/bukalapak": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "description": "query for response for bukalapak",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/tiktoks": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "description": "query for response for tiktoks",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/shortUrl/{service}": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "parameters": [
+          {
+            "name": "service",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "tiny",
+                "vurl",
+                "vgd",
+                "shrt"
+              ],
+              "default": "isgd"
+            },
+            "description": "The URL shortening service to use"
+          },
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The URL to be shortened"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/schemas/SuccessResponse"
+          }
+        }
+      }
+    },
+    "/tools/translate": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "description": "Target language code",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Text to be translated",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools/cuaca": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "parameters": [
+          {
+            "name": "kota",
+            "in": "query",
+            "description": "Text to be search",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools/saucenao": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "anime image URL to find the source ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools/removebg": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "remove background",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools/apkmsearch": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Text to be search",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools/sinonim": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "parameters": [
+          {
+            "name": "kata",
+            "in": "query",
+            "description": "Text to be sinonim",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools/githubstalk": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "Text to be search",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools/langList": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools/userAgents": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools/nekopoi-letest": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools/anti-porn": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "URL of the image to be checked"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tools/ssweb": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "URL of the web to be checked"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "image/*": {}
+            }
+          }
+        }
+      }
+    },
+    "/tools/styletext": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "style text"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/anime/komikindo-ch": {
+      "get": {
+        "tags": [
+          "Tools"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "url komikindo"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/upload/cdn": {
+      "post": {
+        "tags": [
+          "Uploader"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "required": true
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "File successfully uploaded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "author": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "password",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "username",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "apiKey",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User registered successfully"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/profile": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "password",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User profile returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "apiKey": {
+                      "type": "string"
+                    },
+                    "isVerified": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cekey": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "API key checked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "limit": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

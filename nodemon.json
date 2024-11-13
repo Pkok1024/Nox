@@ -1,0 +1,6 @@
+{
+  "ext": "*",
+  "watch": ["src"],
+  "delay": "2500",
+  "ignore": ["swagger.json", "swagger.yaml", "swagger.js", "mappings.json"]
+}

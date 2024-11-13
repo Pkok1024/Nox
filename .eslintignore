@@ -1,0 +1,8 @@
+# Ignore artifacts:
+src/views/page
+*.lock
+replit.nix
+.replit
+pnpm-lock.yaml
+vercel.json
+test

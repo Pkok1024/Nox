@@ -1,0 +1,16 @@
+document.addEventListener("DOMContentLoaded", function() {
+  // Array of background images with gradient
+  const backgrounds = [
+    { gradient: 'rgba(0, 0, 0, 0.7)', url: '/assets/img/hero-carousel/hero-carousel-1.jpg' },
+    { gradient: 'rgba(0, 0, 0, 0.7)', url: '/assets/img/hero-carousel/hero-carousel-2.jpg' },
+    { gradient: 'rgba(0, 0, 0, 0.7)', url: '/assets/img/hero-carousel/hero-carousel-3.jpg' },
+    { gradient: 'rgba(0, 0, 0, 0.7)', url: '/assets/img/hero-carousel/hero-carousel-4.jpg' },
+    { gradient: 'rgba(0, 0, 0, 0.7)', url: '/assets/img/hero-carousel/hero-carousel-5.jpg' }
+  ];
+
+  const randomIndex = Math.floor(Math.random() * backgrounds.length);
+
+  const selectedBackground = backgrounds[randomIndex];
+
+  document.body.style.backgroundImage = `linear-gradient(${selectedBackground.gradient}, ${selectedBackground.gradient}), url(${selectedBackground.url})`;
+});
