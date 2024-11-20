@@ -12,7 +12,7 @@ import resetLimitsCron from './lib/resetLimitsCron.js';
 import customLogger from './lib/logger.js';
 import apiRouter from './routes/apiRouter.js';
 import authRoutes from './routes/authRoutes.js';
-import docsRouter from './routes/docsRouter.js';
+// import docsRouter from './routes/docsRouter.js';
 import verifyRoutes from './routes/verifyRoutes.js';
 import errorHandler from './views/error.js';
 import homeRouter from './views/home.js';
@@ -28,42 +28,37 @@ if (process.env.NODE_ENV === 'development') {
   app.use(customLogger);
 }
 
-
-
-
-app.get(
-  '/redocs',
-  (req, res, next) => {
-    // Middleware untuk menangani error
-    res.on('finish', () => {
-      if (res.statusCode !== 200) {
-        console.error(`Error: ${res.statusCode} - ${req.originalUrl}`);
-      }
-    });
-    next();
-  },
-  redoc({
-    title: '.M.U.F.A.R.',
-    specUrl: '/swagger.json', // Pastikan URL ini benar
-    nonce: '', // Jika perlu untuk keamanan
-    redocOptions: {
-      hideDownloadButton: true, // Menyembunyikan tombol unduh
-    },
-  })
-);
-
-
+// app.get(
+  // '/redocs',
+  // (req, res, next) => {
+    // // Middleware untuk menangani error
+    // res.on('finish', () => {
+      // if (res.statusCode !== 200) {
+        // console.error(`Error: ${res.statusCode} - ${req.originalUrl}`);
+      // }
+    // });
+    // next();
+  // },
+  // redoc({
+    // title: '.M.U.F.A.R.',
+    // specUrl: '/swagger.json', // Pastikan URL ini benar
+    // nonce: '', // Jika perlu untuk keamanan
+    // redocOptions: {
+      // hideDownloadButton: true, // Menyembunyikan tombol unduh
+    // },
+  // })
+// );
 
 // Body parser middleware (using built-in express parsers)
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Enable CORS with options
-const corsOptions = {
-  origin: 'https://your-domain.com', // Replace with your domain
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-};
-app.use(cors(corsOptions));
+// const corsOptions = {
+  // origin: 'https://your-domain.com', // Replace with your domain
+  // methods: ['GET', 'POST', 'PUT', 'DELETE'],
+// };
+// app.use(cors(corsOptions));
 
 // Compression middleware
 app.use(compression());
@@ -96,10 +91,15 @@ app.set('trust proxy', 1);
 app.set('json spaces', 2);
 
 // Serve documentation
-app.use(docsRouter);
+// app.use(docsRouter);
 
 // Define application routes
-app.use('/', homeRouter, verifyRoutes, apiRouter, authRoutes);
+app.use('/', 
+// homeRouter, 
+verifyRoutes,
+ apiRouter, 
+ authRoutes
+ );
 
 // Handle 404 errors
 app.use(errorHandler);

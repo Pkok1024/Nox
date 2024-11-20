@@ -8,7 +8,7 @@ app.use(express.static(join(currentDirectory, '/pages')));
 
 
 app.use((req, res, next) => {
-  res.status(404).render('error/404');
+  res.status(404).json({ error: '404 Not Found' });
 });
 
 export default app;

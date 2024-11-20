@@ -14,7 +14,9 @@ import converter from './converter.js';
  */
 const getFilesByExtension = async (directory, extension) => {
   try {
+    console.log(`Reading directory: ${directory}`);
     const files = await fs.readdir(directory);
+    console.log(`Found files: ${files}`);
     return files.filter(file => file.endsWith(extension));
   } catch (error) {
     throw new Error(`Error reading directory: ${error.message}`);
@@ -28,7 +30,9 @@ const getFilesByExtension = async (directory, extension) => {
  */
 const importModule = async modulePath => {
   try {
+    console.log(`Importing module: ${modulePath}`);
     const { default: module } = await import(modulePath);
+    console.log(`Successfully imported module: ${modulePath}`);
     return module;
   } catch (error) {
     throw new Error(`Error importing module: ${error.message}`);
@@ -42,11 +46,13 @@ const importModule = async modulePath => {
 export default async function CombinedJSON() {
   try {
     const interfacePath = path.join(process.cwd(), './src/routes/interface');
+    console.log(`Interface path: ${interfacePath}`);
     const endpointFiles = await getFilesByExtension(interfacePath, '.js');
     const endpointModules = await Promise.all(
       endpointFiles.map(file => importModule(path.join(interfacePath, file)))
     );
 
+    console.log(`Combining endpoint modules: ${endpointFiles}`);
     return {
       openapi: '3.1.0',
       info: {
@@ -92,12 +98,15 @@ const writeFileWithSpinner = async (filePath, data) => {
   try {
     await fs.access(filePath, fs.constants.F_OK);
     await fs.unlink(filePath);
+    console.log(`Deleted existing file: ${filePath}`);
   } catch (error) {
     // File does not exist, continue with writing
+    console.log(`File does not exist, will create: ${filePath}`);
   }
   try {
     await fs.writeFile(filePath, data);
     spinner.succeed(`${filePath}`);
+    console.log(`Successfully wrote to ${filePath}`);
   } catch (error) {
     spinner.fail(`Failed to write to ${filePath}: ${error.message}`);
     console.error('Error details:', error);
@@ -107,6 +116,7 @@ const writeFileWithSpinner = async (filePath, data) => {
   try {
     const dir = dirname(fileURLToPath(import.meta.url));
     const json = JSON.stringify(await CombinedJSON(), null, 2);
+    //console.log(`Generated JSON: ${json}`);
 
     await writeFileWithSpinner(join(dir, '../views/pages/swagger.json'), json);
     await writeFileWithSpinner(

@@ -24,53 +24,6 @@
 
 /**
  * @swagger
- * /ai/Pixart-A:
- *   get:
- *     tags:
- *       - Ai
- *     parameters:
- *       - in: query
- *         name: prompt
- *         required: true
- *         description: The search query.
- *         schema:
- *           type: string
- *       - in: query
- *         name: style
- *         required: true
- *         description: The style for the AI. Choose from: Cinematic, Photographic, Anime, Manga, Digital Art, Pixel art, Fantasy art, Neonpunk, 3D Model
- *         schema:
- *           type: string
- *       - in: query
- *         name: samplers
- *         required: true
- *         description: The sampler for the AI. Choose from: DPM-Solver, SA-Solver
- *         schema:
- *           type: string
- *       - in: query
- *         name: width
- *         required: false
- *         description: The width of the image.
- *         schema:
- *           type: integer
- *       - in: query
- *         name: height
- *         required: false
- *         description: The height of the image.
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Successful response with search results.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- */
-
-
-/**
- * @swagger
  * /anime/doujin-latest:
  *   get:
  *     tags:
